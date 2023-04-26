@@ -1,7 +1,6 @@
 package westernGame;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -18,7 +17,7 @@ public abstract class Player {
     protected char role;
     protected int health = utility.randomInRange(3,5);
     protected  int range = 1;
-    protected ArrayList<String> actions = new ArrayList<>(Arrays.asList("GET"));
+    protected ArrayList<String> actions = new ArrayList<>(Arrays.asList("GET","SHOOT"));
     public char getRole() {
         return role;
     }
@@ -45,14 +44,14 @@ public abstract class Player {
     public ArrayList<String> getActions() {
         return actions;
     }
+    public void removeAction(String actionToRemove) {
+        actions.remove(actionToRemove);
+    }
 
     public void addAction(String action) {
         this.actions.add(action);
     }
 
-    public void removeAction(String action) {
-    //TODO: check if action is in actions and delet it if its not asked again
-    }
 
     public int getHealth() {
         return health;
@@ -63,7 +62,7 @@ public abstract class Player {
     }
 
     public boolean isDead(){
-        return this.health >= 0;
+        return this.health <= 0;
     }
 
     public void healthDecrease(int howMuch){

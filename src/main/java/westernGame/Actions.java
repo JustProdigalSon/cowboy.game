@@ -3,6 +3,7 @@ package westernGame;
 import java.util.ArrayList;
 
 public class Actions {
+    Utilities ut = new Utilities();
     ArrayList<Player> players = new ArrayList<>();
     public Actions(ArrayList<Player> players) {
         this.players = players;
@@ -16,43 +17,25 @@ public class Actions {
     }
     //TODO check ammo if no ammo no shooting :(
 
-    public void shoot(int targetId){
-        Player target = players.get(targetId);
-        target.healthDecrease(1);
-    }
+//    public void shoot(int targetId){
+//        Player target = players.get(targetId);
+//        target.healthDecrease(1);
+//    }
 
     public void heal(int targetId){
         Player target = players.get(targetId);
         target.healthIncrease(1);
     }
 
-    public void drawCard(){
 
+    public void shoot(int shooterId,int victimId){
+        players.get(shooterId).removeAction("SHOOT");
+        if(players.get(victimId).isDead()) players.remove(players.get(victimId));
     }
 
-/*    public void shoot(int targetId){
-        int targetId;
-        ArrayList<Player> playersInRange = gameHandler.playersInRange(player.getRange(),players.indexOf(player),players );
-        System.out.println(gameHandler.rangeToString(playersInRange));
-        System.out.println("Podaj cel");
-        String target = inPut.next();
-        for(int j = 0; j < playersInRange.size(); j++){
-            System.out.println(playersInRange.get(j).getPlayerName());
-            if (target.equals(playersInRange.get(j).getPlayerName())) {
-                targetId = i;
-                System.out.println(players.get(targetId).getHealth());
-                System.out.println("pifpaf ~;=== ---*  " + playersInRange.get(j).getPlayerName());
-                action.shoot(targetId);
-                System.out.println(players.get(targetId).getHealth());
-                break;
-            }
-        }
-    }*/
-    private boolean checkIfSherifIsNear(ArrayList<Player> availablePlayers){
-        for(Player player: availablePlayers){
-            if(player.getRole() == 's') return true;
-        }
-        return false;
+    public void dynamiteSomeone(int shooterId,int victimId){
+        players.get(shooterId).removeAction("DYNAMITE");
+        players.remove(victimId);
     }
 
     //TODO make heall function and neighbours in given range function(Make playersInRange better)

@@ -1,5 +1,6 @@
 package westernGame;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Utilities {
@@ -9,5 +10,11 @@ public class Utilities {
     }
     public String displayPlayerInfo(int currentPlayerQueueId){
         return "PlaceHolder";
+    }
+
+    public ArrayList<String> rangeToString(ArrayList<Player> playersInRange){
+        ArrayList<String> output = new ArrayList<>();
+        for(Player player: playersInRange) output.add(player.getPlayerName());
+        return output;
     }
 }
