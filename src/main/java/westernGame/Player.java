@@ -1,48 +1,24 @@
 package westernGame;
 
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class Player {
-    GameHandler gameUtilites = new GameHandler();
 
-    private char role;
-    private int ammo = 1;
-    private int  health = gameUtilites.randomInRange(3,5);
-    private int range = 1;
-    private  ArrayList<String> cardsHeld = new ArrayList<>();
-    private int placeInQueue;
+    Utilities utility = new Utilities();
+
+    //player name works like id
+    //TODO check if name already exists among the players
+    private String playerName;
 
 
-    public Player(int health,char role) {
 
-        this.health = health;
-        this.role = role;
-    }
-
-//    public Player(char role, int health){
-//        this.role = role;
-//        this.health = health;
-//
-//    }
-
-    public int getPlaceInQueue() {
-        return placeInQueue;
-    }
-
-    public void setPlaceInQueue(int placeInQueue) {
-        this.placeInQueue = placeInQueue;
-    }
-
-
-    public ArrayList<String> getCardsHeld() {
-        return cardsHeld;
-
-    }
-
-    public void setCardsHeld(ArrayList<String> posesedCards) {
-        this.cardsHeld = posesedCards;
-    }
-
+    protected char role;
+    protected int health = utility.randomInRange(3,5);
+    protected  int range = 1;
+    protected ArrayList<String> actions = new ArrayList<>(Arrays.asList("GET"));
     public char getRole() {
         return role;
     }
@@ -50,13 +26,32 @@ public abstract class Player {
     public void setRole(char role) {
         this.role = role;
     }
-
-    public int getAmmo() {
-        return ammo;
+    public String getPlayerName() {
+        return playerName;
     }
 
-    public void setAmmo(int ammo) {
-        this.ammo = ammo;
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    public ArrayList<String> getActions() {
+        return actions;
+    }
+
+    public void addAction(String action) {
+        this.actions.add(action);
+    }
+
+    public void removeAction(String action) {
+    //TODO: check if action is in actions and delet it if its not asked again
     }
 
     public int getHealth() {
@@ -67,13 +62,26 @@ public abstract class Player {
         this.health = health;
     }
 
-    public int getRange() {
-        return range;
+    public boolean isDead(){
+        return this.health >= 0;
     }
 
-    public void setRange(int range) {
-        this.range = range;
+    public void healthDecrease(int howMuch){
+        health = health - howMuch ;
     }
+    public void healthIncrease(int howMuch){
+        health = health + howMuch ;
+    }
+
+    public void drawAtcionCard(){
+        ActionCards[] actionCards = ActionCards.values();
+        ActionCards actionCard = actionCards[utility.randomInRange(0,2)];
+        addAction(String.valueOf(actionCard));
+    }
+
+
+
+
 
 
 }
